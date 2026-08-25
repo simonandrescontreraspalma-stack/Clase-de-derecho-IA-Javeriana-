@@ -2,9 +2,9 @@
 
 **Pontificia Universidad Javeriana · 2026-II · Docente: Pedro Ardila**
 
-> **Estudiante:** [escribe aquí tu nombre completo]
-> **Nombre del proyecto:** [escribe aquí el nombre de tu herramienta]
-> **Fecha de inicio:** [AAAA-MM-DD]
+> **Estudiante:** Simón Andrés Contreras Palma 
+> **Nombre del proyecto:** REVISOR DE CONTRATOS SIMPLES
+> **Fecha de inicio:** 18/08/2026
 
 ---
 
