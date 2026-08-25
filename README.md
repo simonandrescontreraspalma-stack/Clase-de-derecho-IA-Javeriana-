@@ -22,26 +22,28 @@ Bienvenido/a a tu repositorio de proyecto. **Este archivo es tu tablero de mando
 
 ### 1.1 El problema jurídico
 ¿Qué problema **real del derecho colombiano** resuelve tu herramienta? ¿Quién lo sufre hoy y cómo lo resuelve sin tu herramienta?
+Las personas que firman contratos sencillos de arrendamiento o de prestación de servicios muchas veces no identifican cláusulas abusivas, riesgosas, ambiguas o elementos importantes que hacen falta en el contrato. Esto puede generar conflictos posteriores sobre pagos, terminación, obligaciones, responsabilidades o incumplimientos. Actualmente, una persona sin conocimientos jurídicos debe revisar el contrato por su cuenta o pagar una asesoría para identificar estos riesgos. La herramienta busca ofrecer una primera revisión orientativa basada en una lista de verificación jurídica colombiana. No reemplaza la asesoría de un abogado, pero permite detectar problemas básicos antes de firmar.
 
 ### 1.2 Usuarios
 ¿Quién va a usarla? Describe a tu usuario ideal en una frase (ej. *"un arrendatario bogotano que le subieron el canon de arrendamiento más del límite legal"*). Recuerda que al final necesitas **al menos un usuario real** que la pruebe.
+El usuario ideal es una persona en Colombia que está a punto de firmar un contrato sencillo de arrendamiento de vivienda o de prestación de servicios y quiere identificar posibles riesgos antes de firmarlo. También puede ser utilizado por estudiantes, pequeños arrendadores, trabajadores independientes o personas que contratan servicios. El usuario debe poder cargar o copiar el texto del contrato en la herramienta.
 
 ### 1.3 Qué hace y qué NO hace (alcance)
 | ✅ Sí hace | ❌ No hace |
 | --- | --- |
-| [funcionalidad 1] | [fuera de alcance 1] |
-| [funcionalidad 2] | [fuera de alcance 2] |
+| [Identifica cláusulas potencialmente riesgosas, ambiguas o faltantes.] | [No reemplaza la asesoría de un abogado.] |
+| [Señala aspectos que el usuario debería revisar antes de firmar.] | [No representa al usuario ante jueces, autoridades o particulares.] |
 
 *Consejo de abogado: un alcance pequeño y perfecto vale más que uno grande y roto.*
 
 ### 1.4 Marco jurídico y fuentes
 ¿Qué normas alimentan tu herramienta? Lista tu corpus normativo (leyes, decretos, sentencias — debe ser **pequeño y público**):
-- [ ] Norma/sentencia 1: [nombre + enlace]
-- [ ] Norma/sentencia 2: [nombre + enlace]
+- [ ] Norma/sentencia 1: [Ley 820 de 2003 — Régimen de arrendamiento de vivienda urbana. http://www.secretariasenado.gov.co/senado/basedoc/ley_0820_2003.html?utm_source=chatgpt.com]
+- [ ] Norma/sentencia 2: [Código Civil colombiano — artículos sobre arrendamiento. http://www.secretariasenado.gov.co/senado/basedoc/codigo_civil.html?utm_source=chatgpt.com]
 
 ### 1.5 Nombre y lema
-Un nombre corto para tu herramienta y una frase que explique qué hace (la usarás en la demo del día de presentaciones).
-
+CONTRATO CHECK
+“Revisa. Detecta. Decide.”
 ---
 
 ## 🗺️ Parte 2 — Plan de desarrollo
