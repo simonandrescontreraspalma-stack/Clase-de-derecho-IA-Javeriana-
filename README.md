@@ -78,13 +78,14 @@ Todo es **gratuito y no exige tarjeta de crédito**. Tu proyecto final debería 
                           [Tu corpus normativo (RAG)]
 ```
 
-| Pieza | Herramienta recomendada | Para qué sirve (en cristiano) |
-| --- | --- | --- |
-| **Interfaz web** | **v0.dev** (genera una app Next.js) o **Streamlit** (si tu agente trabaja en Python) | Lo que el usuario ve: cajas de texto, botones. Se la describes a la IA y ella la construye. |
-| **Orquestación** | **LangChain / LangGraph** | El "cerebro intermedio": toma la pregunta del usuario, busca en tus normas, arma el prompt y llama al modelo. |
-| **Modelo (LLM)** | **OpenRouter** — modelos con etiqueta `:free` | El "cerebro" que redacta. OpenRouter te da acceso a modelos gratuitos con una sola cuenta y una sola API key. |
-| **Memoria de fuentes (RAG)** | LangChain + almacén de vectores (**Chroma** o **FAISS** en local; **Supabase** si necesitas base de datos en la nube) | La técnica para que el modelo responda **con tus normas** y no con lo que "recuerda" (que puede ser una alucinación jurídica). |
-| **Trazabilidad** *(opcional)* | **LangSmith** (plan gratuito) | Ver qué le pasó a cada respuesta por dentro. Útil para depurar. |
+Pieza	Herramienta recomendada	Para qué sirve (en CONTRATO CHECK)
+Interfaz web	v0.dev + Next.js	Será la parte que ve el usuario. Permitirá seleccionar el tipo de contrato, pegar o cargar el texto y presionar el botón “Revisar contrato”. También mostrará los riesgos detectados, recomendaciones y fuentes jurídicas.
+Orquestación	LangChain	Conectará las diferentes partes de la herramienta. Recibirá el contrato del usuario, buscará información relevante en el corpus jurídico, construirá el contexto para el modelo y organizará la respuesta final.
+Modelo (LLM)	OpenRouter — modelo gratuito	Será el modelo encargado de analizar el contrato y explicar los posibles riesgos jurídicos en lenguaje sencillo. Recibirá tanto el contrato como los fragmentos normativos recuperados por el sistema RAG.
+Memoria de fuentes (RAG)	Chroma durante el desarrollo; Supabase/pgvector si se requiere almacenamiento en la nube	Permitirá almacenar y buscar los fragmentos de las normas que alimentan CONTRATO CHECK. Así, el modelo podrá consultar el corpus jurídico seleccionado en lugar de depender únicamente de la información que aprendió durante su entrenamiento.
+Corpus jurídico	Archivos .md o .txt dentro de corpus/	Contendrá las normas colombianas utilizadas por la herramienta, inicialmente la Ley 820 de 2003 y los artículos pertinentes del Código Civil colombiano. Cada fuente estará organizada para facilitar su recuperación y citación.
+Trazabilidad (opcional)	LangSmith	Permitirá observar el funcionamiento interno de las consultas y detectar errores durante el desarrollo. No es indispensable para la primera versión, por lo que se incorporará únicamente si resulta necesario.
+Seguridad	Variables de entorno (.env)	La clave de OpenRouter se almacenará como una variable de entorno y no se escribirá directamente en el código ni se publicará en GitHub.|
 
 > 🔑 **Regla de oro:** tu `OPENROUTER_API_KEY` va en una **variable de entorno**, jamás pegada en el código ni en el chat. Si una clave se filtra en GitHub, revócala de inmediato en openrouter.ai → Keys.
 
