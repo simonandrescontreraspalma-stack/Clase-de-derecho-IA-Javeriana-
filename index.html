@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTRATO CHECK — Revisor de Contratos Simples (IA Jurídica)</title>
+    <meta name="description" content="Herramienta de revisión orientativa de contratos sencillos basada en la legislación colombiana (Ley 820 de 2003 y Código Civil). Pontificia Universidad Javeriana.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Academic & Legal Disclaimer Banner (Obligatorio Parte 6) -->
+    <div class="legal-disclaimer-banner" id="legal-disclaimer">
+        <div class="container banner-content">
+            <span class="banner-icon">⚠️</span>
+            <p><strong>ADVERTENCIA LEGAL OBLIGATORIA:</strong> Esta herramienta es un ejercicio académico del curso de Derecho e Inteligencia Artificial de la Pontificia Universidad Javeriana. <em>No constituye asesoría legal ni sustituye la consulta con un abogado titulado.</em></p>
+        </div>
+    </div>
+
+    <!-- Main Navigation / Header -->
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="brand">
+                <div class="brand-logo">⚖️</div>
+                <div class="brand-text">
+                    <h1>CONTRATO CHECK</h1>
+                    <span class="tagline">Revisa. Detecta. Decide.</span>
+                </div>
+            </div>
+            <div class="header-meta">
+                <span class="badge badge-javeriana">PUJ 2026-II</span>
+                <span class="badge badge-status">🟢 Versión v1.0</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        
+        <!-- Hero & Intro Section -->
+        <section class="hero-section">
+            <div class="hero-text">
+                <h2>Analiza tus contratos antes de firmar</h2>
+                <p>Identifica automáticamente <strong>cláusulas abusivas, riesgos legales, ambigüedades y vacíos normativos</strong> en contratos de arrendamiento de vivienda y prestación de servicios en Colombia.</p>
+            </div>
+        </section>
+
+        <!-- Input & Control Panel -->
+        <section class="app-grid">
+            
+            <!-- Left Column: Input Form -->
+            <div class="card input-card">
+                <div class="card-header">
+                    <h3>1. Cargar Contrato</h3>
+                    <span class="step-badge">Paso 1</span>
+                </div>
+                
+                <form id="contract-form">
+                    <div class="form-group">
+                        <label for="contract-type">Tipo de Contrato</label>
+                        <select id="contract-type" class="form-control" required>
+                            <option value="arrendamiento">Arrendamiento de Vivienda Urbana (Ley 820 de 2003)</option>
+                            <option value="servicios">Prestación de Servicios (Código Civil / Comercial)</option>
+                            <option value="general">Otro Contrato Comercial / Civil General</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="label-with-action">
+                            <label for="contract-text">Texto del Contrato</label>
+                            <button type="button" id="btn-load-sample" class="btn-text">
+                                ✨ Cargar contrato de prueba con riesgos
+                            </button>
+                        </div>
+                        <textarea id="contract-text" class="form-control" rows="12" placeholder="Pega aquí el texto completo de tu contrato o carga un borrador..." required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="btn-analyze" class="btn btn-primary btn-block">
+                            <span>🔍 Analizar Riesgos Jurídicos</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right Column: Results & Dashboard -->
+            <div class="card results-card" id="results-container">
+                
+                <!-- Initial State (Before submitting) -->
+                <div id="empty-state" class="empty-state">
+                    <div class="empty-icon">📜</div>
+                    <h3>Listo para revisar</h3>
+                    <p>Pega tu contrato en el panel izquierdo o haz clic en <strong>"Cargar contrato de prueba"</strong> para ver la magia de la IA jurídica en acción.</p>
+                </div>
+
+                <!-- Loading Spinner State -->
+                <div id="loading-state" class="loading-state hidden">
+                    <div class="spinner"></div>
+                    <h3>Escaneando cláusulas jurídicas...</h3>
+                    <p>Contrastando texto con el corpus de la <strong>Ley 820 de 2003</strong> y el <strong>Código Civil colombiano</strong>.</p>
+                </div>
+
+                <!-- Analysis Results Panel -->
+                <div id="analysis-content" class="analysis-content hidden">
+                    
+                    <div class="card-header results-header">
+                        <h3>2. Diagnóstico Jurídico</h3>
+                        <span class="badge" id="risk-level-badge">Nivel de Riesgo</span>
+                    </div>
+
+                    <!-- Risk Gauge & Summary Stats -->
+                    <div class="dashboard-stats">
+                        <div class="stat-box risk-score-box">
+                            <span class="stat-label">Índice de Riesgo</span>
+                            <div class="stat-value" id="risk-score-value">0%</div>
+                            <span class="stat-sub" id="risk-score-text">Evaluando...</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Alertas Críticas</span>
+                            <div class="stat-value text-danger" id="stat-critical-count">0</div>
+                            <span class="stat-sub">Cláusulas nulas o ilegales</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Advertencias</span>
+                            <div class="stat-value text-warning" id="stat-warning-count">0</div>
+                            <span class="stat-sub">Riesgos o desequilibrios</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Faltantes</span>
+                            <div class="stat-value text-info" id="stat-missing-count">0</div>
+                            <span class="stat-sub">Cláusulas esenciales ausentes</span>
+                        </div>
+                    </div>
+
+                    <!-- Findings Breakdown Tabs/List -->
+                    <div class="findings-section">
+                        <h4>Hallazgos Detallados y Citas Legales</h4>
+                        <div id="findings-list" class="findings-list">
+                            <!-- Dynamic findings injected here via app.js -->
+                        </div>
+                    </div>
+
+                    <!-- Recommendations & Negotiation Advice -->
+                    <div class="recommendations-box">
+                        <h4>💡 Recomendaciones para Negociar</h4>
+                        <ul id="recommendations-list">
+                            <!-- Dynamic recommendations injected here -->
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Legal Corpus & Sources Reference Section (M3 preview) -->
+        <section class="corpus-info-section card">
+            <div class="card-header">
+                <h3>📚 Marco Normativo de Referencia (Corpus Colombiano)</h3>
+            </div>
+            <div class="corpus-grid">
+                <div class="corpus-card">
+                    <span class="corpus-icon">🏛️</span>
+                    <h4>Ley 820 de 2003</h4>
+                    <p>Régimen de arrendamiento de vivienda urbana. Regula incrementos de canon, prohibición de depósitos en dinero (Art. 16) y causales legales de terminación.</p>
+                </div>
+                <div class="corpus-card">
+                    <span class="corpus-icon">📖</span>
+                    <h4>Código Civil Colombiano</h4>
+                    <p>Normas generales sobre contratos, obligaciones, saneamiento por vicios ocultos, teoría del riesgo y fuerza mayor.</p>
+                </div>
+                <div class="corpus-card">
+                    <span class="corpus-icon">🛡️</span>
+                    <h4>Protección al Consumidor</h4>
+                    <p>Principios de equilibrio contractual y prohibición de cláusulas abusivas que generen indefensión al contratante débil.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p><strong>CONTRATO CHECK</strong> — Proyecto de Grado / Evaluación <strong>Pontificia Universidad Javeriana</strong> (2026-II).</p>
+            <p class="footer-sub">Desarrollado por <strong>Simón Andrés Contreras Palma</strong> · Docente: <strong>Pedro Ardila</strong></p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
