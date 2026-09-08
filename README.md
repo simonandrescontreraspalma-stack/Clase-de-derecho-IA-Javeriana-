@@ -91,6 +91,16 @@ Seguridad	Variables de entorno (.env)	La clave de OpenRouter se almacenará como
 
 Pídele a tu agente de IA que te explique esta arquitectura con tu proyecto concreto antes de escribir una línea de código.
 
+|Componente|Herramient|Función|
+|---|---|---|
+|Interfaz Web| v0.dev + Next.js|Será la parte que ve el usuario. Permitirá seleccionar el tipo de contrato, pegar o cargar el texto y presionar el botón “Revisar contrato”. También mostrará los riesgos detectados, recomendaciones y fuentes jurídicas|
+|orquestación| LangChain| Conectará las diferentes partes de la herramienta. Recibirá el contrato del usuario, buscará información relevante en el corpus jurídico, construirá el contexto para el modelo y organizará la respuesta final|
+|Modelo (LLM)|OpenRouter — modelo gratuito| Será el modelo encargado de analizar el contrato y explicar los posibles riesgos jurídicos en lenguaje sencillo. Recibirá tanto el contrato como los fragmentos normativos recuperados por el sistema RAG.
+|Memoria de fuentes (RAG)|Chroma durante el desarrollo; Supabase/pgvector si se requiere almacenamiento en la nube|Permitirá almacenar y buscar los fragmentos de las normas que alimentan CONTRATO CHECK. Así, el modelo podrá consultar el corpus jurídico seleccionado en lugar de depender únicamente de la información que aprendió durante su entrenamiento.|
+|Corpus jurídico|Archivos .md o .txt dentro de corpus/|Contendrá las normas colombianas utilizadas por la herramienta, inicialmente la Ley 820 de 2003 y los artículos pertinentes del Código Civil colombiano. Cada fuente estará organizada para facilitar su recuperación y citación.|
+|Trazabilidad (opcional)|LangSmith|Permitirá observar el funcionamiento interno de las consultas y detectar errores durante el desarrollo. No es indispensable para la primera versión, por lo que se incorporará únicamente si resulta necesario.|
+|Seguridad|Variables de entorno (.env)|La clave de OpenRouter se almacenará como una variable de entorno y no se escribirá directamente en el código ni se publicará en GitHub.|
+
 ---
 
 ## 🚀 Parte 4 — Ruta de despliegue
