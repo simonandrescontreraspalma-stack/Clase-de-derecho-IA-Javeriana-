@@ -259,7 +259,7 @@ Firmado en Bogotá D.C. a los 10 días del mes de agosto de 2026.`;
                 </div>
                 <p style="font-size: 0.88rem; margin-top: 4px;">${item.explanation}</p>
                 <div class="finding-quote">"${item.quote}"</div>
-                <div class="finding-citation">📌 <strong>Fuente Jurídica:</strong> ${item.citation}</div>
+                <div class="finding-citation"> <strong>Fuente Jurídica:</strong> ${item.citation}</div>
             `;
             findingsList.appendChild(findingEl);
         });
