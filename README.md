@@ -143,31 +143,19 @@ Tu competencia más transferible a la práctica profesional: **instruir bien a l
 5. **Nunca pegues datos personales reales** de usuarios en el chat ni en el código (Ley 1581).
 6. **Verifica como abogado.** Toda respuesta legal que dé la herramienta, contrástala con la norma. Tú respondes por lo que publicas.
 
-### Prompts de arranque por hito
-<details>
-<summary><b>M0 — delimitar el proyecto</b></summary>
 
-> "Soy estudiante de derecho primer semestre. Mi idea de proyecto es [idea]. Hazme 5 preguntas duras que un abogado le haría a esta idea para delimitar su alcance, y luego proponme un alcance mínimo viable para 5 semanas."
-</details>
-
-<details>
-<summary><b>M1 — instrucciones del asistente</b></summary>
-
-> "Escribe el prompt de sistema de mi asistente jurídico. Debe: (1) responder solo con base en [corpus], (2) citar la norma que usa, (3) decir 'no lo sé' cuando no tenga fuente, (4) incluir esta advertencia en cada respuesta: es ejercicio académico, no asesoría legal. Proponme 3 versiones y explícame las diferencias."
-</details>
-
-<details>
-<summary><b>M3 — RAG con mis normas</b></summary>
-
-> "Tengo [ley X] en archivos de texto en /corpus. Guíame paso a paso para montar RAG con LangChain y un modelo gratuito de OpenRouter, explicándome cada paso. Al final, el asistente debe citar artículo y norma en cada respuesta."
-</details>
-
-<details>
-<summary><b>M4 — interfaz y despliegue</b></summary>
-
-> "Crea una interfaz web simple para mi asistente: un recuadro para escribir la consulta, el espacio de respuesta, la advertencia legal visible arriba, y el logo/nombre. Luego guíame para desplegarla gratis en Vercel con mi repo de GitHub. No sé programar: dime exactamente qué archivo tocar y qué copiar."
-</details>
-
+> Eres CONTRATO CHECK, una herramienta de asistencia jurídica orientativa para Colombia, desarrollada como ejercicio académico en la Pontificia Universidad Javeriana.
+>
+> Tu función es analizar el texto de contratos sencillos de arrendamiento de vivienda urbana o prestación de servicios que el usuario te comparte, e identificar:
+>
+> 1. **CLÁUSULAS ILEGALES O NULAS:** Aquellas que violan expresamente normas colombianas (Ley 820 de 2003, Código Civil). Ejemplo: exigir depósito en dinero en arrendamiento de vivienda (prohibido por Art. 16, Ley 820/2003).
+> 2. **CLÁUSULAS RIESGOSAS O ABUSIVAS:** Aquellas que generan un desequilibrio grave en contra del usuario. Ejemplo: cláusulas penales desproporcionadas, terminación sin preaviso.
+> 3. **CLÁUSULAS AMBIGUAS:** Redacción confusa que puede interpretarse de formas contradictorias y generar conflictos.
+> 4. **CLÁUSULAS ESENCIALES FALTANTES:** Elementos que la ley exige o que son indispensables para proteger al usuario y que no aparecen en el contrato.
+>
+> **REGLAS:** Cita siempre la norma jurídica específica. Si no tienes norma que respalde un hallazgo, dilo explícitamente. Nunca inventes leyes ni artículos. Al final de cada análisis incluye siempre la advertencia: "⚠️ Este análisis es un ejercicio académico y NO constituye asesoría legal. Consulta con un abogado antes de firmar."
+>
+> **Corpus normativo:** Ley 820 de 2003, Código Civil colombiano, Código de Comercio.
 ---
 
 ## ⚖️ Parte 6 — Ética, datos y responsabilidad
@@ -176,13 +164,13 @@ Estas salvaguardas son **obligatorias** y hacen parte de la evaluación:
 
 - **Advertencia visible obligatoria.** Tu interfaz debe mostrar, en lugar visible:
   > *"Esta herramienta es un ejercicio académico que no constituye asesoría legal ni sustituye la consulta con un abogado."*
-  - [ ] Implementada y visible en la interfaz
+  - [ x] Implementada y visible en la interfaz
 - **Protección de datos (Ley 1581 de 2012).** Tu herramienta **no recolecta ni almacena datos personales reales** de usuarios de prueba. Los usuarios de prueba usan situaciones ficticias o datos inventados.
-  - [ ] Verificado: no guardo datos personales
+  - [x ] Verificado: no guardo datos personales
 - **Corpus público.** Solo fuentes públicas: leyes, decretos, jurisprudencia publicada.
-  - [ ] Verificado
+  - [x ] Verificado
 - **Anti-alucinaciones.** El asistente debe citar la fuente de cada afirmación jurídica y admitir cuando no la tiene.
-  - [ ] Casos de prueba donde la herramienta se niega a inventar
+  - [x ] Casos de prueba donde la herramienta se niega a inventar
 
 ---
 
@@ -191,16 +179,23 @@ Estas salvaguardas son **obligatorias** y hacen parte de la evaluación:
 Responde con total honestidad — aquí es donde demuestras tu criterio jurídico:
 
 1. **¿Dónde falla tu herramienta?** Describe 2 situaciones donde se equivoca o se queda corta.
+**Situación 1 — Contratos con lenguaje muy técnico o inusual:**
+La herramienta detecta riesgos buscando patrones de palabras clave en el texto (como "depósito", "reajuste" o "terminación inmediata"). Si un contrato usa lenguaje muy técnico, latinismos jurídicos o redacción inusual para expresar la misma cláusula abusiva, la herramienta puede no detectarla. Por ejemplo, si un contrato dice "el locatario constituirá una garantía dineraria" en lugar de "el arrendatario pagará un depósito en dinero", el sistema podría no identificarlo como una violación al Artículo 16 de la Ley 820 de 2003.
+**Situación 2 — Contratos de tipos no previstos:**
+La herramienta fue diseñada específicamente para contratos de arrendamiento de vivienda urbana y prestación de servicios simples. Si un usuario carga un contrato de compraventa, una promesa de contrato, un acuerdo de confidencialidad o un contrato laboral, el análisis será superficial e impreciso, ya que las reglas jurídicas que lo rigen son completamente diferentes.
 2. **¿Qué datos procesa?** Qué entra, qué se guarda, qué sale.
+**Qué entra:** El texto del contrato que el usuario pega o escribe directamente en la interfaz web. También el tipo de contrato seleccionado (arrendamiento o servicios).
+- **Qué se guarda:** Nada. La herramienta no tiene base de datos ni servidor propio. El análisis ocurre en el navegador del usuario y no se transmite ni almacena ninguna información.
+- **Qué sale:** Un diagnóstico con nivel de riesgo (alto/medio/bajo), listado de hallazgos con citas normativas específicas y recomendaciones para negociar antes de firmar.
 3. **¿Por qué no reemplaza al abogado?** Argumenta en 5–8 frases.
 
----
+---CONTRATO CHECK es una herramienta orientativa que identifica patrones de riesgo basados en reglas predefinidas, pero no puede ejercer el juicio profesional que requiere el derecho. Un abogado no solo conoce la ley, sino que la interpreta en contexto: evalúa la capacidad de las partes, la validez del consentimiento, el historial del contratante, el entorno económico del negocio y las implicaciones fiscales y procesales de cada cláusula. La herramienta no conoce al usuario, no sabe si firmó bajo presión, si tiene antecedentes contractuales con la contraparte ni si existe una relación de poder desigual. Además, el derecho colombiano evoluciona constantemente con nuevas sentencias de la Corte Suprema y la Corte Constitucional que la herramienta no puede incorporar en tiempo real. Por estas razones, CONTRATO CHECK es útil como primera lectura orientativa antes de una consulta profesional, pero nunca como sustituto de ella.
 
 ## ✅ Parte 8 — Entregables finales (Definition of Done)
 
 Requisitos de entrega del curso — todos deben estar ✅:
 
-- [ ] 🔗 **Solución funcionando**: resuelve el problema jurídico y está desplegada con URL pública.
+- [ ] 🔗 **Solución funcionando**: CONTRATO CHECK está desplegada con URL pública en Vercel y permite analizar contratos de arrendamiento detectando cláusulas ilegales con citas a la Ley 820 de 2003.
 - [ ] 👤 **Usuario real**: al menos una persona externa al curso la usó, con evidencia (video corto o testimonio). Guarda la evidencia en `docs/evidencia-usuario.md`.
 - [ ] 📦 **Repositorio con historial**: este repo muestra tus avances semanales (commits + bitácora).
 - [ ] 🧠 **Análisis crítico**: Parte 7 completada.
