@@ -1,6 +1,6 @@
 /* ==========================================================================
-   CONTRATO CHECK  Core JavaScript & Legal Rule Engine
-   Pontificia Universidad Javeriana · 2026-II
+   CONTRATO CHECK - Core JavaScript & Legal Rule Engine
+   Pontificia Universidad Javeriana  2026-II
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
